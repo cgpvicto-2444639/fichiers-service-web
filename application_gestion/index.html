@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Épreuve finale - Service Web H26</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="./js/script.js"></script>
+</head>
+<body>
+    <div class="contenu">
+        <header>
+            <h1>Épreuve finale - Service Web H26</h1>
+            <p>Christine Lehoux</p>
+        </header>
+
+        <div class="formulaires-container">
+           <section class="colonne-gauche">
+            <h3>Création d'une bibliothèque</h3>
+            <form id="form-creation">
+                    <div class="champ">
+                        <label for="nom-biblio">Nom de la bibliothèque</label>
+                        <input type="text" id="nom-biblio" placeholder="Votre bibliothèque">
+                    </div>
+
+                    <div class="champ">
+                        <label for="courriel-creer">Courriel</label>
+                        <input type="email" id="courriel-creer" placeholder="Votre courriel">
+                    </div>
+
+                    <div class="champ">
+                        <label for="mdp-creer">Mot de passe</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="mdp-creer" placeholder="********">
+                            <span class="oeil-icon">👁️</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-action">Créer</button>
+                </form>
+           </section>
+
+           <div class="separateur-vertical"></div>
+            <section class="colonne droit">
+                    <h3>Récupération d'une clé api</h3>
+                    <form id="form-recuperation">
+                        <div class="champ">
+                            <label for="courriel-recup">Courriel</label>
+                            <input type="email" id="courriel-recup" placeholder="Votre courriel">
+                        </div>
+
+                        <div class="champ">
+                            <label for="mdp-recup">Mot de passe</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="mdp-recup" placeholder="********">
+                                <span class="oeil-icon">👁️</span>
+                            </div>
+                        </div>
+
+                        <div class="champ-checkbox">
+                            <input type="checkbox" id="generer-cle">
+                            <label for="generer-cle">Générer une nouvelle clé</label>
+                        </div>
+
+                        <button type="submit" class="btn-action">Récupérer</button>
+                    </form>
+                </section>
+        </div>
+    </div>
+    
+</body>
+</html>

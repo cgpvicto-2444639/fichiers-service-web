@@ -1,0 +1,138 @@
+/* Configuration générale */
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif; /* Pour le look manuscrit */
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.contenu {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* En-tête */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.nom-eleve {
+    font-size: 1.2rem;
+}
+
+/* Conteneur des formulaires */
+.formulaires-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Pour que le séparateur prenne toute la hauteur */
+    gap: 40px;
+}
+
+.colonne {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Titres des colonnes */
+h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+}
+
+/* Séparateur vertical */
+.separateur-vertical {
+    width: 2px;
+    background-color: #999;
+    margin: 0 10px;
+}
+
+/* Formulaires et champs */
+.champ {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: 2px solid #333;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+input::placeholder {
+    color: #ccc;
+}
+
+/* Wrapper pour le mot de passe avec l'oeil */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+}
+
+.oeil-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* Checkbox */
+.champ-checkbox {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Boutons */
+.btn-action {
+    align-self: flex-end; /* Aligne le bouton à droite dans la colonne */
+    background: white;
+    border: 2px solid #333;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.btn-action:hover {
+    background: #f0f0f0;
+}
+
+/* Adaptation mobile */
+@media (max-width: 768px) {
+    .formulaires-container {
+        flex-direction: column;
+    }
+    .separateur-vertical {
+        height: 2px;
+        width: 100%;
+        margin: 30px 0;
+    }
+}
