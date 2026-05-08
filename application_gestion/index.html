@@ -20,24 +20,23 @@
             <h3>Création d'une bibliothèque</h3>
             <form id="form-creation">
                     <div class="champ">
-                        <label for="nom-biblio">Nom de la bibliothèque</label>
-                        <input type="text" id="nom-biblio" placeholder="Votre bibliothèque">
+                        <label for="nom">Nom de la bibliothèque</label>
+                        <input type="text" id="nom" placeholder="Votre bibliothèque">
                     </div>
 
                     <div class="champ">
-                        <label for="courriel-creer">Courriel</label>
-                        <input type="email" id="courriel-creer" placeholder="Votre courriel">
+                        <label for="courriel">Courriel</label>
+                        <input type="email" id="courriel" placeholder="Votre courriel">
                     </div>
 
                     <div class="champ">
-                        <label for="mdp-creer">Mot de passe</label>
+                        <label for="mdp">Mot de passe</label>
                         <div class="input-wrapper">
-                            <input type="password" id="mdp-creer" placeholder="********">
-                            <span class="oeil-icon">👁️</span>
+                            <input type="password" id="mdp" placeholder="********">
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-action">Créer</button>
+                    <button type="button" class="btn-action" id="btn-creer">Créer</button>
                 </form>
            </section>
 
@@ -54,7 +53,6 @@
                             <label for="mdp-recup">Mot de passe</label>
                             <div class="input-wrapper">
                                 <input type="password" id="mdp-recup" placeholder="********">
-                                <span class="oeil-icon">👁️</span>
                             </div>
                         </div>
 
@@ -63,7 +61,8 @@
                             <label for="generer-cle">Générer une nouvelle clé</label>
                         </div>
 
-                        <button type="submit" class="btn-action">Récupérer</button>
+                        <button type="submit" class="btn-action" id="btn-cle-api">Récupérer</button>
+                        <p>Votre clé : <span id="cle_api" style="font-weight: bold; color: blue;">---</span></p>
                     </form>
                 </section>
         </div>

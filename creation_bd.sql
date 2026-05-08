@@ -1,13 +1,13 @@
 /** -- Création de la base de donnée de la bibliothèque -- **/
 drop table if exists public.prets;
 drop table if exists public.livres;
-drop table if exists public.bibliotheque;
+drop table if exists public.bibliotheques;
 
-create table bibliotheque(
+create table bibliotheques(
 	id serial,
 	nom VARCHAR(100),
 	courriel VARCHAR(255),
-	cle_api VARCHAR(30),
+	cle_api VARCHAR(255),
 	password VARCHAR(100),
 	primary key (id)
 );
@@ -18,10 +18,11 @@ create table livres(
 	bibliotheque_id INT,
 	titre VARCHAR(100),
 	auteur VARCHAR(100),
+	description VARCHAR(500),
 	isbn VARCHAR(20),
 	date_ajout DATE,
 	disponible BOOLEAN,
-	foreign key (bibliotheque_id) references bibliotheque(id),
+	foreign key (bibliotheque_id) references bibliotheques(id),
 	primary key (id)
 );
 
@@ -30,12 +31,13 @@ create table prets (
 	livre_id INT,
 	emprunteur VARCHAR(100),
 	date_retour date,
+	disponible BOOLEAN,
 	foreign key (livre_id) references livres(id),
 	primary key (id)
 );
 
 /** -- Insertion des données -- **/
-insert into bibliotheque (nom, courriel, cle_api, password)
+insert into bibliotheques (nom, courriel, cle_api, password)
 values ('Bibliothèque Charles-Édouard-Mailhot', 'bibliotheque@victoriaville.ca', '4321', 'bcem'),
 	   ('Bibliothèque Alcide-Fleury', 'bibliotheque@victoriaville.ca', '1234', 'baf');
 
@@ -48,3 +50,5 @@ values (1, 'La maquette', 'Christine Lehoux', '11111111111111111111', '05-23-202
 insert into prets (livre_id, emprunteur, date_retour)
 values (1, 'Simon Tousignant', '06-19-2025'),
 	   (4, 'Christiane Lagacé', '12-12-2026');
+
+select * from bibliotheques;
