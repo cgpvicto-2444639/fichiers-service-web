@@ -1,0 +1,237 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/toolpad/v0.13.0/docs/schemas/v1/definitions.json#properties/Page
+
+apiVersion: v1
+kind: page
+spec:
+  title: Default page
+  alias:
+    - WuDrmg6
+  content:
+    - component: Text
+      name: text
+      layout:
+        horizontalAlign: center
+      props:
+        variant: h2
+        value: Projet final - Service Web
+    - component: PageRow
+      name: pageRow
+      props:
+        justifyContent: start
+      children:
+        - component: PageColumn
+          name: pageColumn
+          layout:
+            columnSize: 1.0373831775700935
+          children:
+            - component: DataGrid
+              name: dataGrid
+              layout:
+                columnSize: 1
+              props:
+                rows:
+                  $$jsExpression: QueryListeLivre.data.livres
+                columns:
+                  - field: id
+                    type: number
+                  - field: bibliotheque_id
+                    type: number
+                  - field: titre
+                    type: string
+                  - field: auteur
+                    type: string
+                  - field: description
+                    type: json
+                  - field: isbn
+                    type: number
+                  - field: date_ajout
+                    type: dateTime
+                  - field: disponible
+                    type: boolean
+            - component: Checkbox
+              name: checkbox
+              props:
+                mode: checkbox
+                label: Afficher tous les livres
+        - component: DataGrid
+          name: dataGrid1
+          layout:
+            columnSize: 0.9626168224299065
+          props:
+            rows:
+              $$jsExpression: ModifierDisLivre.call
+            columns:
+              - field: livre_id
+                type: number
+              - field: emprunteur
+                type: string
+              - field: date_retour
+                type: dateTime
+              - field: disponible
+                type: boolean
+    - component: PageRow
+      name: pageRow1
+      children:
+        - component: Text
+          name: text1
+          layout:
+            columnSize: 0.99822695035461
+          props:
+            value: Modifier disponibilité prêt
+        - component: Form
+          name: form
+          children:
+            - component: TextField
+              name: textField
+              props:
+                label: id
+                defaultValue: "3"
+            - component: TextField
+              name: textField3
+              props:
+                label: boolean
+          layout:
+            columnSize: 1.00177304964539
+          props:
+            formControlsAlign: start
+            submitButtonText:
+              $$jsExpression: ModifierDisPret.call()
+        - component: Text
+          name: text2
+          props:
+            value: Modifier disponibilité livre
+        - component: Form
+          name: form1
+          children:
+            - component: TextField
+              name: textField1
+              props:
+                label: id
+            - component: TextField
+              name: textField2
+              props:
+                label: boolean
+          props:
+            formControlsAlign: start
+      props:
+        justifyContent: start
+  queries:
+    - name: QueryListeLivre
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/liste?tous=${paramete\
+            rs.tous}`"
+        headers:
+          [
+            {
+              name: Authorization,
+              value: { $$jsExpression: parameters.cle_api },
+            },
+          ]
+        method: GET
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: tous
+          value:
+            $$jsExpression: checkbox.checked ?? false
+    - name: QueryListePret
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/livre/${parameters.id\
+            _livre}`"
+        headers:
+          - name: Authorization
+            value:
+              $$jsExpression: parameters.cle_api
+        method: GET
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: id_livre
+          value:
+            $$jsExpression: dataGrid.selection?.id
+    - name: ModifierDisLivre
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/modifier_status_livre\
+            /${parameters.id_livre}`"
+        headers:
+          [
+            {
+              name: Authorization,
+              value: { $$jsExpression: parameters.cle_api },
+            },
+          ]
+        method: PUT
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`{\r
+
+              \  \"disponible\": ${parameters.mod_dis_livre}\r
+
+              }`"
+          contentType: application/json
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: mod_dis_livre
+          value:
+            $$jsExpression: textField2.value
+        - name: id_livre
+          value:
+            $$jsExpression: textField1.value
+    - name: ModifierDisPret
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/modifier_status_pret/\
+            ${parameters.mod_dis_pret}`"
+        headers: []
+        method: PUT
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`{\r
+
+              \  \"disponible\": ${parameters.mod_dis_pret}\r
+
+              }`"
+          contentType: text/plain
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: id_pret
+          value:
+            $$jsExpression: textField.value
+        - name: mod_dis_pret
+          value:
+            $$jsExpression: textField3.value
