@@ -105,6 +105,10 @@ spec:
             variant: h5
         - component: Form
           name: form1
+          props:
+            formControlsAlign: start
+            onSubmit:
+              $$jsExpressionAction: ModifierDisLivre.call()
           children:
             - component: TextField
               name: textField1
@@ -114,71 +118,67 @@ spec:
               name: textField2
               props:
                 label: boolean
-          props:
-            formControlsAlign: start
-            onSubmit:
-              $$jsExpressionAction: ModifierDisLivre.call()
       props:
         justifyContent: start
     - component: Form
-      name: form2
+      name: form5
       props:
         onSubmit:
           $$jsExpressionAction: AjouterUnLivre.call()
         submitButtonText: Ajouter
       children:
         - component: Text
-          name: text3
+          name: text6
           props:
             value: Ajouter un livre
             variant: h4
         - component: TextField
-          name: textFieldBibliothequeId
+          name: textFieldBibliothequeId1
           props:
             label: bibliotheque_id
         - component: PageRow
-          name: pageRow2
+          name: pageRow6
           props:
             justifyContent: start
           children:
             - component: TextField
-              name: textFieldTitre
+              name: textFieldTitre1
               props:
                 label: titre
             - component: TextField
-              name: textFieldIsbn
+              name: textFieldIsbn1
               props:
                 label: isbn
         - component: PageRow
-          name: pageRow3
+          name: pageRow6
           props:
             justifyContent: start
           children:
             - component: TextField
-              name: textFieldAuteur
+              name: textFieldAuteur1
               props:
                 label: auteur
             - component: TextField
-              name: textFieldDateAjout
+              name: textFieldDateAjout1
               props:
                 label: date_ajout
         - component: PageRow
-          name: pageRow4
+          name: pageRow6
           props:
             justifyContent: start
           children:
             - component: TextField
-              name: textFieldDescription
+              name: textFieldDescription1
               layout:
                 columnSize: 1
               props:
                 label: description
             - component: TextField
-              name: textFieldDisponible
+              name: textFieldDisponible1
               props:
                 label: disponible
         - component: Spacer
-          name: spacer
+          name: spacer2
           layout:
             height: 60
     - component: Form
@@ -201,8 +201,8 @@ spec:
             - component: TextField
               name: ModtextFieldLivreId
               props:
-                label: livre_id
                 defaultValue: "1"
+                label: livre_id
             - component: TextField
               name: ModtextFieldBibliothequeId1
               props:
@@ -240,10 +240,10 @@ spec:
           children:
             - component: TextField
               name: ModtextFieldDescription1
-              props:
-                label: description
               layout:
                 columnSize: 1
+              props:
+                label: description
             - component: TextField
               name: ModtextFieldDisponible1
               props:
@@ -252,77 +252,124 @@ spec:
           name: spacer1
           layout:
             height: 60
+    - component: Text
+      name: text4
+      props:
+        value: Supprimer un livre
+        variant: h5
     - component: Form
       name: form4
       props:
+        formControlsAlign: start
+        submitButtonText: Supprimer
         onSubmit:
-          $$jsExpressionAction: ModifierUnLivre.call()
-        submitButtonText: Modifier
+          $$jsExpressionAction: ModifierDisPret.call()
+      layout:
+        columnSize: 1.00177304964539
       children:
-        - component: Text
-          name: text4
+        - component: TextField
+          name: suppIdLivre
           props:
-            value: Modifier un livre
-            variant: h4
-        - component: PageRow
-          name: pageRow6
+            label: livre_id
+            defaultValue: "3"
+    - component: Spacer
+      name: spacer5
+    - component: PageRow
+      name: pageRow4
+      props:
+        justifyContent: start
+      children:
+        - component: Form
+          name: form6
           props:
-            justifyContent: start
+            onSubmit:
+              $$jsExpressionAction: ModifierUnPret.call()
+            submitButtonText: Modifier
+            formControlsAlign: start
           children:
-            - component: TextField
-              name: ModtextFieldLivreId1
+            - component: Text
+              name: text7
               props:
+                value: Modifier un prêt
+                variant: h4
+            - component: TextField
+              name: modifierPretId
+              props:
+                label: pret_id
                 defaultValue: "1"
+            - component: TextField
+              name: modifierPretLivreid1
+              props:
                 label: livre_id
             - component: TextField
-              name: ModtextFieldBibliothequeId2
+              name: modifierPretEmprunteur1
               props:
-                label: bibliotheque_id
-        - component: PageRow
-          name: pageRow6
+                label: emprunteur
+            - component: TextField
+              name: modifierPretDispo1
+              props:
+                label: disponible
+              layout:
+                columnSize: 1
+            - component: PageRow
+              name: pageRow2
+              props:
+                justifyContent: start
+              children:
+                - component: TextField
+                  name: modifierPretDateRetour1
+                  props:
+                    label: date_retour
+                - component: Spacer
+                  name: spacer4
+                  layout:
+                    height: 60
+        - component: Spacer
+          name: spacer3
+        - component: Form
+          name: form2
           props:
-            justifyContent: start
+            onSubmit:
+              $$jsExpressionAction: AjouterUnPret.call()
+            submitButtonText: Ajouter
+            formControlsAlign: end
           children:
-            - component: TextField
-              name: ModtextFieldTitre2
+            - component: Text
+              name: text3
               props:
-                label: titre
+                value: Ajouter un prêt
+                variant: h4
             - component: TextField
-              name: ModtextFieldIsbn2
+              name: ajoutPretLivreid
               props:
-                label: isbn
-        - component: PageRow
-          name: pageRow6
-          props:
-            justifyContent: start
-          children:
+                label: livre_id
+                defaultValue: "1"
             - component: TextField
-              name: ModtextFieldAuteur2
+              name: ajoutPretEmprunteur
               props:
-                label: auteur
+                label: emprunteur
+                defaultValue: moi
             - component: TextField
-              name: ModtextFieldDateAjout2
-              props:
-                label: date_ajout
-        - component: PageRow
-          name: pageRow6
-          props:
-            justifyContent: start
-          children:
-            - component: TextField
-              name: ModtextFieldDescription2
+              name: ajoutPretDispo
               layout:
                 columnSize: 1
               props:
-                label: description
-            - component: TextField
-              name: ModtextFieldDisponible2
-              props:
                 label: disponible
-        - component: Spacer
-          name: spacer2
-          layout:
-            height: 60
+                defaultValue: "true"
+            - component: PageRow
+              name: pageRow3
+              props:
+                justifyContent: start
+              children:
+                - component: TextField
+                  name: ajoutPretDateRetour
+                  props:
+                    label: date_retour
+                    defaultValue: 2013-03-25T04:00:00.000Z
+                - component: Spacer
+                  name: spacer
+                  layout:
+                    height: 60
   queries:
     - name: QueryListeLivre
       mode: query
@@ -585,3 +632,109 @@ spec:
         - name: livre_id
           value:
             $$jsExpression: ModtextFieldLivreId.value
+    - name: AjouterUnPret
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: "`${parameters.hostname}/api/bibliotheque/ajout_pret`"
+        headers:
+          - name: Authorization
+            value:
+              $$jsExpression: parameters.cle_api
+        method: POST
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`\r
+
+              {\r
+
+              \    \"livre_id\": ${parameters.livre_id},\r
+
+              \    \"emprunteur\": \"${parameters.emprunteur}\",\r
+
+              \    \"date_retour\": \"${parameters.date_retour}\",\r
+
+              \    \"disponible\": ${parameters.disponible}\r
+
+              }\r
+
+              `"
+          contentType: application/json
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: livre_id
+          value:
+            $$jsExpression: ajoutPretLivreid.value
+        - name: emprunteur
+          value:
+            $$jsExpression: ajoutPretEmprunteur.value
+        - name: disponible
+          value:
+            $$jsExpression: ajoutPretDispo.value
+        - name: date_retour
+          value:
+            $$jsExpression: ajoutPretDateRetour.value
+    - name: ModifierUnPret
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/modifier_pret/${param\
+            eters.pret_id}`"
+        headers:
+          [
+            {
+              name: Authorization,
+              value: { $$jsExpression: parameters.cle_api },
+            },
+          ]
+        method: PUT
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`\r
+
+              {\r
+
+              \    \"livre_id\": ${parameters.livre_id},\r
+
+              \    \"emprunteur\": \"${parameters.emprunteur}\",\r
+
+              \    \"date_retour\": \"${parameters.date_retour}\",\r
+
+              \    \"disponible\": ${parameters.disponible}\r
+
+              }\r
+
+              `"
+          contentType: application/json
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: pret_id
+          value:
+            $$jsExpression: modifierPretId.value
+        - name: livre_id
+          value:
+            $$jsExpression: modifierPretLivreid1.value
+        - name: emprunteur
+          value:
+            $$jsExpression: modifierPretEmprunteur1.value
+        - name: disponible
+          value:
+            $$jsExpression: modifierPretDispo1.value
+        - name: date_retour
+          value:
+            $$jsExpression: modifierPretDateRetour1.value
