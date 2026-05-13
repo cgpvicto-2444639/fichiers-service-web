@@ -59,7 +59,7 @@ spec:
             columnSize: 0.9626168224299065
           props:
             rows:
-              $$jsExpression: ModifierDisLivre.call
+              $$jsExpression: QueryListePret.data.prets
             columns:
               - field: livre_id
                 type: number
@@ -94,8 +94,9 @@ spec:
             columnSize: 1.00177304964539
           props:
             formControlsAlign: start
-            submitButtonText:
-              $$jsExpression: ModifierDisPret.call()
+            submitButtonText: "Modifier"
+            onSubmit:
+              $$jsExpressionAction: ModifierDisPret.call()
         - component: Text
           name: text2
           props:
@@ -113,8 +114,27 @@ spec:
                 label: boolean
           props:
             formControlsAlign: start
+            onSubmit:
+              $$jsExpressionAction: ModifierDisLivre.call()
       props:
         justifyContent: start
+    - component: Form
+      name: form2
+      children:
+        - component: Text
+          name: text3
+          props:
+            value: Ajouter un livre
+        - component: TextField
+          name: textFieldBibliothequeId
+          props:
+            label: bibliotheque_id
+        - component: TextField
+          name: textFieldTitre
+          props:
+            label: titre
+    - component: TextField
+      name: textField4
   queries:
     - name: QueryListeLivre
       mode: query
@@ -132,6 +152,7 @@ spec:
             },
           ]
         method: GET
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -155,6 +176,7 @@ spec:
             value:
               $$jsExpression: parameters.cle_api
         method: GET
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -190,6 +212,7 @@ spec:
 
               }`"
           contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -210,8 +233,14 @@ spec:
         url:
           $$jsExpression:
             "`${parameters.hostname}/api/bibliotheque/modifier_status_pret/\
-            ${parameters.mod_dis_pret}`"
-        headers: []
+            ${parameters.id_pret}`"
+        headers:
+          [
+            {
+              name: Authorization,
+              value: { $$jsExpression: parameters.cle_api },
+            },
+          ]
         method: PUT
         body:
           kind: raw
@@ -221,7 +250,8 @@ spec:
               \  \"disponible\": ${parameters.mod_dis_pret}\r
 
               }`"
-          contentType: text/plain
+          contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
