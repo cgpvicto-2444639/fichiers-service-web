@@ -122,6 +122,10 @@ spec:
         justifyContent: start
     - component: Form
       name: form2
+      props:
+        onSubmit:
+          $$jsExpressionAction: AjouterUnLivre.call()
+        submitButtonText: Ajouter
       children:
         - component: Text
           name: text3
@@ -165,15 +169,160 @@ spec:
           children:
             - component: TextField
               name: textFieldDescription
+              layout:
+                columnSize: 1
               props:
                 label: description
             - component: TextField
               name: textFieldDisponible
               props:
                 label: disponible
+        - component: Spacer
+          name: spacer
+          layout:
+            height: 60
+    - component: Form
+      name: form3
       props:
         onSubmit:
-          $$jsExpressionAction: AjouterUnLivre.call()
+          $$jsExpressionAction: ModifierUnLivre.call()
+        submitButtonText: Modifier
+      children:
+        - component: Text
+          name: text5
+          props:
+            value: Modifier un livre
+            variant: h4
+        - component: PageRow
+          name: pageRow7
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldLivreId
+              props:
+                label: livre_id
+                defaultValue: "1"
+            - component: TextField
+              name: ModtextFieldBibliothequeId1
+              props:
+                label: bibliotheque_id
+        - component: PageRow
+          name: pageRow5
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldTitre1
+              props:
+                label: titre
+            - component: TextField
+              name: ModtextFieldIsbn1
+              props:
+                label: isbn
+        - component: PageRow
+          name: pageRow5
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldAuteur1
+              props:
+                label: auteur
+            - component: TextField
+              name: ModtextFieldDateAjout1
+              props:
+                label: date_ajout
+        - component: PageRow
+          name: pageRow5
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldDescription1
+              props:
+                label: description
+              layout:
+                columnSize: 1
+            - component: TextField
+              name: ModtextFieldDisponible1
+              props:
+                label: disponible
+        - component: Spacer
+          name: spacer1
+          layout:
+            height: 60
+    - component: Form
+      name: form4
+      props:
+        onSubmit:
+          $$jsExpressionAction: ModifierUnLivre.call()
+        submitButtonText: Modifier
+      children:
+        - component: Text
+          name: text4
+          props:
+            value: Modifier un livre
+            variant: h4
+        - component: PageRow
+          name: pageRow6
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldLivreId1
+              props:
+                defaultValue: "1"
+                label: livre_id
+            - component: TextField
+              name: ModtextFieldBibliothequeId2
+              props:
+                label: bibliotheque_id
+        - component: PageRow
+          name: pageRow6
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldTitre2
+              props:
+                label: titre
+            - component: TextField
+              name: ModtextFieldIsbn2
+              props:
+                label: isbn
+        - component: PageRow
+          name: pageRow6
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldAuteur2
+              props:
+                label: auteur
+            - component: TextField
+              name: ModtextFieldDateAjout2
+              props:
+                label: date_ajout
+        - component: PageRow
+          name: pageRow6
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: ModtextFieldDescription2
+              layout:
+                columnSize: 1
+              props:
+                label: description
+            - component: TextField
+              name: ModtextFieldDisponible2
+              props:
+                label: disponible
+        - component: Spacer
+          name: spacer2
+          layout:
+            height: 60
   queries:
     - name: QueryListeLivre
       mode: query
@@ -369,3 +518,70 @@ spec:
         - name: disponible
           value:
             $$jsExpression: textFieldDisponible.value
+    - name: ModifierUnLivre
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/modifier_livre/${para\
+            meters.livre_id}`"
+        headers:
+          - name: Authorization
+            value:
+              $$jsExpression: parameters.cle_api
+        method: PUT
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`\r
+
+              {\r
+
+              \  \"bibliotheque_id\": ${parameters.bibliotheque_id},\r
+
+              \  \"titre\": \"${parameters.titre}\",\r
+
+              \  \"auteur\": \"${parameters.auteur}\",\r
+
+              \  \"description\": \"${parameters.description}\",\r
+
+              \  \"isbn\": \"${parameters.isbn}\",\r
+
+              \  \"date_ajout\": \"${parameters.date_ajout}\",\r
+
+              \  \"disponible\": ${parameters.disponible}\r
+
+              }`"
+          contentType: application/json
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: bibliotheque_id
+          value:
+            $$jsExpression: ModtextFieldBibliothequeId1.value
+        - name: titre
+          value:
+            $$jsExpression: ModtextFieldTitre1.value
+        - name: auteur
+          value:
+            $$jsExpression: ModtextFieldAuteur1.value
+        - name: description
+          value:
+            $$jsExpression: ModtextFieldDescription1.value
+        - name: isbn
+          value:
+            $$jsExpression: ModtextFieldIsbn1.value
+        - name: date_ajout
+          value:
+            $$jsExpression: ModtextFieldDateAjout1.value
+        - name: disponible
+          value:
+            $$jsExpression: ModtextFieldDisponible1.value
+        - name: livre_id
+          value:
+            $$jsExpression: ModtextFieldLivreId.value
