@@ -109,6 +109,7 @@ spec:
             formControlsAlign: start
             onSubmit:
               $$jsExpressionAction: ModifierDisLivre.call()
+            submitButtonText: Modifier
           children:
             - component: TextField
               name: textField1
@@ -150,7 +151,7 @@ spec:
               props:
                 label: isbn
         - component: PageRow
-          name: pageRow6
+          name: pageRow2
           props:
             justifyContent: start
           children:
@@ -163,7 +164,7 @@ spec:
               props:
                 label: date_ajout
         - component: PageRow
-          name: pageRow6
+          name: pageRow3
           props:
             justifyContent: start
           children:
@@ -221,7 +222,7 @@ spec:
               props:
                 label: isbn
         - component: PageRow
-          name: pageRow5
+          name: pageRow4
           props:
             justifyContent: start
           children:
@@ -234,7 +235,7 @@ spec:
               props:
                 label: date_ajout
         - component: PageRow
-          name: pageRow5
+          name: pageRow8
           props:
             justifyContent: start
           children:
@@ -258,7 +259,7 @@ spec:
         value: Supprimer un livre
         variant: h5
     - component: Form
-      name: form4
+      name: form7
       props:
         formControlsAlign: start
         submitButtonText: Supprimer
@@ -268,24 +269,19 @@ spec:
         columnSize: 1.00177304964539
       children:
         - component: TextField
-          name: suppIdLivre
+          name: suppIdLivre1
           props:
             label: livre_id
             defaultValue: "3"
     - component: Spacer
       name: spacer5
     - component: PageRow
-      name: pageRow4
+      name: pageRow9
       props:
         justifyContent: start
       children:
         - component: Form
           name: form6
-          props:
-            onSubmit:
-              $$jsExpressionAction: ModifierUnPret.call()
-            submitButtonText: Modifier
-            formControlsAlign: start
           children:
             - component: Text
               name: text7
@@ -307,12 +303,12 @@ spec:
                 label: emprunteur
             - component: TextField
               name: modifierPretDispo1
-              props:
-                label: disponible
               layout:
                 columnSize: 1
+              props:
+                label: disponible
             - component: PageRow
-              name: pageRow2
+              name: pageRow10
               props:
                 justifyContent: start
               children:
@@ -324,8 +320,17 @@ spec:
                   name: spacer4
                   layout:
                     height: 60
+          layout:
+            columnSize: 1
+          props:
+            onSubmit:
+              $$jsExpressionAction: ModifierUnPret.call()
+            submitButtonText: Modifier
+            formControlsAlign: start
         - component: Spacer
           name: spacer3
+          layout:
+            columnSize: 1
         - component: Form
           name: form2
           props:
@@ -357,7 +362,7 @@ spec:
                 label: disponible
                 defaultValue: "true"
             - component: PageRow
-              name: pageRow3
+              name: pageRow11
               props:
                 justifyContent: start
               children:
@@ -370,6 +375,28 @@ spec:
                   name: spacer
                   layout:
                     height: 60
+    - component: Spacer
+      name: spacer6
+    - component: Form
+      name: form4
+      layout:
+        columnSize: 1.00177304964539
+      props:
+        formControlsAlign: start
+        submitButtonText: Supprimer
+        onSubmit:
+          $$jsExpressionAction: SuppUnPret.call()
+      children:
+        - component: Text
+          name: text8
+          props:
+            value: Supprimer un prêt
+            variant: h5
+        - component: TextField
+          name: suppIdPret
+          props:
+            label: pret_id
+            defaultValue: "3"
   queries:
     - name: QueryListeLivre
       mode: query
@@ -537,6 +564,7 @@ spec:
 
               }`"
           contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -601,6 +629,7 @@ spec:
 
               }`"
           contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -662,6 +691,7 @@ spec:
 
               `"
           contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -716,6 +746,7 @@ spec:
 
               `"
           contentType: application/json
+        searchParams: []
       parameters:
         - name: hostname
           value:
@@ -738,3 +769,26 @@ spec:
         - name: date_retour
           value:
             $$jsExpression: modifierPretDateRetour1.value
+    - name: SuppUnPret
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression:
+            "`${parameters.hostname}/api/bibliotheque/supp_pret/${parameter\
+            s.pret_id}`"
+        headers:
+          - name: Authorization
+            value:
+              $$jsExpression: parameters.cle_api
+        method: DELETE
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: pret_id
+          value:
+            $$jsExpression: suppIdPret.value
