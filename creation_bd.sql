@@ -52,3 +52,4 @@ values (1, 'Simon Tousignant', '06-19-2025'),
 	   (4, 'Christiane Lagacé', '12-12-2026');
 
 select * from bibliotheques;
+select * from prets;
