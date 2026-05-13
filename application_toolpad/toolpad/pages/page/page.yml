@@ -78,6 +78,7 @@ spec:
             columnSize: 0.99822695035461
           props:
             value: Modifier disponibilité prêt
+            variant: h5
         - component: Form
           name: form
           children:
@@ -101,6 +102,7 @@ spec:
           name: text2
           props:
             value: Modifier disponibilité livre
+            variant: h5
         - component: Form
           name: form1
           children:
@@ -125,16 +127,53 @@ spec:
           name: text3
           props:
             value: Ajouter un livre
+            variant: h4
         - component: TextField
           name: textFieldBibliothequeId
           props:
             label: bibliotheque_id
-        - component: TextField
-          name: textFieldTitre
+        - component: PageRow
+          name: pageRow2
           props:
-            label: titre
-    - component: TextField
-      name: textField4
+            justifyContent: start
+          children:
+            - component: TextField
+              name: textFieldTitre
+              props:
+                label: titre
+            - component: TextField
+              name: textFieldIsbn
+              props:
+                label: isbn
+        - component: PageRow
+          name: pageRow3
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: textFieldAuteur
+              props:
+                label: auteur
+            - component: TextField
+              name: textFieldDateAjout
+              props:
+                label: date_ajout
+        - component: PageRow
+          name: pageRow4
+          props:
+            justifyContent: start
+          children:
+            - component: TextField
+              name: textFieldDescription
+              props:
+                label: description
+            - component: TextField
+              name: textFieldDisponible
+              props:
+                label: disponible
+      props:
+        onSubmit:
+          $$jsExpressionAction: AjouterUnLivre.call()
   queries:
     - name: QueryListeLivre
       mode: query
@@ -265,3 +304,68 @@ spec:
         - name: mod_dis_pret
           value:
             $$jsExpression: textField3.value
+    - name: AjouterUnLivre
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: "`${parameters.hostname}/api/bibliotheque/`"
+        headers:
+          [
+            {
+              name: Authorization,
+              value: { $$jsExpression: parameters.cle_api },
+            },
+          ]
+        method: POST
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`\r
+
+              {\r
+
+              \  \"bibliotheque_id\": ${parameters.bibliotheque_id},\r
+
+              \  \"titre\": \"${parameters.titre}\",\r
+
+              \  \"auteur\": \"${parameters.auteur}\",\r
+
+              \  \"description\": \"${parameters.description}\",\r
+
+              \  \"isbn\": \"${parameters.isbn}\",\r
+
+              \  \"date_ajout\": \"${parameters.date_ajout}\",\r
+
+              \  \"disponible\": ${parameters.disponible}\r
+
+              }`"
+          contentType: application/json
+      parameters:
+        - name: hostname
+          value:
+            $$env: hostname
+        - name: cle_api
+          value:
+            $$env: cle_api
+        - name: bibliotheque_id
+          value:
+            $$jsExpression: textFieldBibliothequeId.value
+        - name: titre
+          value:
+            $$jsExpression: textFieldTitre.value
+        - name: auteur
+          value:
+            $$jsExpression: textFieldAuteur.value
+        - name: description
+          value:
+            $$jsExpression: textFieldDescription.value
+        - name: isbn
+          value:
+            $$jsExpression: textFieldIsbn.value
+        - name: date_ajout
+          value:
+            $$jsExpression: textFieldDateAjout.value
+        - name: disponible
+          value:
+            $$jsExpression: textFieldDisponible.value
