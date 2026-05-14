@@ -86,11 +86,14 @@ spec:
               name: textField
               props:
                 label: id
-                defaultValue: "3"
+                defaultValue:
+                  $$jsExpression: dataGrid1.selection?.id
             - component: TextField
               name: textField3
               props:
                 label: boolean
+                defaultValue:
+                  $$jsExpression: dataGrid1.selection?.disponible
           layout:
             columnSize: 1.00177304964539
           props:
@@ -115,10 +118,14 @@ spec:
               name: textField1
               props:
                 label: id
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.id
             - component: TextField
               name: textField2
               props:
                 label: boolean
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.disponible
       props:
         justifyContent: start
     - component: Form
@@ -137,6 +144,8 @@ spec:
           name: textFieldBibliothequeId1
           props:
             label: bibliotheque_id
+            defaultValue:
+              $$jsExpression: dataGrid.selection?.bibliotheque_id
         - component: PageRow
           name: pageRow6
           props:
@@ -146,6 +155,8 @@ spec:
               name: textFieldTitre1
               props:
                 label: titre
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.titre
             - component: TextField
               name: textFieldIsbn1
               props:
@@ -159,6 +170,8 @@ spec:
               name: textFieldAuteur1
               props:
                 label: auteur
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.auteur
             - component: TextField
               name: textFieldDateAjout1
               props:
@@ -174,6 +187,8 @@ spec:
                 columnSize: 1
               props:
                 label: description
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.description
             - component: TextField
               name: textFieldDisponible1
               props:
@@ -202,8 +217,9 @@ spec:
             - component: TextField
               name: ModtextFieldLivreId
               props:
-                defaultValue: "1"
                 label: livre_id
+                defaultValue:
+                  $$jsExpression: dataGrid.selection?.id
             - component: TextField
               name: ModtextFieldBibliothequeId1
               props:
@@ -782,6 +798,7 @@ spec:
             value:
               $$jsExpression: parameters.cle_api
         method: DELETE
+        searchParams: []
       parameters:
         - name: hostname
           value:
